@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="AdServerApp">
+<head>
+<title>Ad Campaign Server</title>
+<script type="text/javascript" src="scripts/angular.min.js"></script>
+<script type="text/javascript" src="scripts/angular-route.min.js"></script>
+<script type="text/javascript" src="scripts/angular-resource.min.js"></script>
+<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="app/adserver_svc.js"></script>
+<script type="text/javascript" src="app/adserver_controller.js"></script>
+</head>
+<body ng-controller="AdServerController">
+	<form>
+		What do you want to do: 
+		<input type="radio" ng-model="adSvrOperation"
+			ng-click="resetFields()" value="add">Create new Ad Campaign for Partner 
+		<input type="radio" ng-model="adSvrOperation"
+			ng-click="resetFields()" value="fetch">Fetch Ad Campaign for Partner <br> <br>
+		<div ng-show="adSvrOperation == 'add'">
+			Partner Id: 
+			<input type="text" ng-model="partner_id"><br><br> 
+			Duration in seconds for the Ad Campaign: 
+			<input type="text" ng-model="duration"><br><br>
+			Content for the Ad Campaign: 
+			<input type="text" ng-model="ad_content"> <br><br>
+		</div>
+		<div ng-show="adSvrOperation == 'fetch'">
+			Partner Id: <input type="text" ng-model="partner_id"><br><br>
+		</div>
+		<button ng-click="OpSelect()">Submit</button>
+	</form>
+	<h3 style="color: green">{{status}}</h3>
+	<h3 style="color: red">{{error}}</h3>
+	<table ng-show="adCampaign != null">
+		<tr>
+			<td>Campaign Start Time (UTC)</td>
+			<td>{{adCampaign.campaignStartDt}}</td>
+		</tr>
+		<tr>
+			<td>Campaign Duration in seconds</td>
+			<td>{{adCampaign.duration}}</td>
+		</tr>
+		<tr>
+			<td>Campaign End Time (UTC)</td>
+			<td>{{adCampaign.campaignEndDt}}</td>
+		</tr>
+		<tr>
+			<td>Ad Campaign Content</td>
+			<td>{{adCampaign.adContent}}</td>
+		</tr>
+	</table>
+</body>
+</html>
